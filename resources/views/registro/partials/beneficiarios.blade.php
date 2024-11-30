@@ -1,4 +1,3 @@
-
 <div class="container mx-auto px-4 py-6">
     <div class="mb-6">
         <h2 class="text-2xl font-semibold text-gray-800">Beneficiarios</h2>
@@ -14,34 +13,34 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Apellidos y Nombres -->
                         <div class="md:col-span-2">
-                            <label for="nombre_beneficiario_1" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="apellidos_nombres_0" class="block text-sm font-medium text-gray-700 mb-2">
                                 Apellidos y Nombres
                             </label>
-                            <input type="text" id="nombre_beneficiario_1" name="beneficiarios[0][nombre]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                            <input type="text" id="apellidos_nombres_0" name="beneficiarios[0][apellidos_nombres]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
                         </div>
 
                         <!-- DNI -->
                         <div>
-                            <label for="dni_beneficiario_1" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="dni_0" class="block text-sm font-medium text-gray-700 mb-2">
                                 DNI N°
                             </label>
-                            <input type="text" id="dni_beneficiario_1" name="beneficiarios[0][dni]" maxlength="8" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                            <input type="text" id="dni_0" name="beneficiarios[0][dni]" maxlength="8" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
                         </div>
 
                         <!-- Fecha de Nacimiento -->
                         <div>
-                            <label for="fecha_nacimiento_beneficiario_1" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="fecha_nacimiento_0" class="block text-sm font-medium text-gray-700 mb-2">
                                 Fecha de Nacimiento
                             </label>
-                            <input type="date" id="fecha_nacimiento_beneficiario_1" name="beneficiarios[0][fecha_nacimiento]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                            <input type="date" id="fecha_nacimiento_0" name="beneficiarios[0][fecha_nacimiento]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
                         </div>
 
                         <!-- Parentesco -->
                         <div>
-                            <label for="parentesco_beneficiario_1" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="parentesco_0" class="block text-sm font-medium text-gray-700 mb-2">
                                 Parentesco
                             </label>
-                            <input type="text" id="parentesco_beneficiario_1" name="beneficiarios[0][parentesco]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                            <input type="text" id="parentesco_0" name="beneficiarios[0][parentesco]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
                         </div>
 
                         <!-- Sexo -->
@@ -93,28 +92,28 @@
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">Beneficiario ${beneficiarioCount}</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="md:col-span-2">
-                            <label for="nombre_beneficiario_${beneficiarioCount}" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="apellidos_nombres_${beneficiarioCount - 1}" class="block text-sm font-medium text-gray-700 mb-2">
                                 Apellidos y Nombres
                             </label>
-                            <input type="text" id="nombre_beneficiario_${beneficiarioCount}" name="beneficiarios[${beneficiarioCount - 1}][nombre]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                            <input type="text" id="apellidos_nombres_${beneficiarioCount - 1}" name="beneficiarios[${beneficiarioCount - 1}][apellidos_nombres]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
                         </div>
                         <div>
-                            <label for="dni_beneficiario_${beneficiarioCount}" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="dni_${beneficiarioCount - 1}" class="block text-sm font-medium text-gray-700 mb-2">
                                 DNI N°
                             </label>
-                            <input type="text" id="dni_beneficiario_${beneficiarioCount}" name="beneficiarios[${beneficiarioCount - 1}][dni]" maxlength="8" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                            <input type="text" id="dni_${beneficiarioCount - 1}" name="beneficiarios[${beneficiarioCount - 1}][dni]" maxlength="8" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
                         </div>
                         <div>
-                            <label for="fecha_nacimiento_beneficiario_${beneficiarioCount}" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="fecha_nacimiento_${beneficiarioCount - 1}" class="block text-sm font-medium text-gray-700 mb-2">
                                 Fecha de Nacimiento
                             </label>
-                            <input type="date" id="fecha_nacimiento_beneficiario_${beneficiarioCount}" name="beneficiarios[${beneficiarioCount - 1}][fecha_nacimiento]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                            <input type="date" id="fecha_nacimiento_${beneficiarioCount - 1}" name="beneficiarios[${beneficiarioCount - 1}][fecha_nacimiento]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
                         </div>
                         <div>
-                            <label for="parentesco_beneficiario_${beneficiarioCount}" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="parentesco_${beneficiarioCount - 1}" class="block text-sm font-medium text-gray-700 mb-2">
                                 Parentesco
                             </label>
-                            <input type="text" id="parentesco_beneficiario_${beneficiarioCount}" name="beneficiarios[${beneficiarioCount - 1}][parentesco]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+                            <input type="text" id="parentesco_${beneficiarioCount - 1}" name="beneficiarios[${beneficiarioCount - 1}][parentesco]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Sexo</label>
@@ -136,3 +135,4 @@
         });
     });
 </script>
+

@@ -1,5 +1,5 @@
 <?php
-// app/Models/InformacionLaboral.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,3 +25,4 @@ class InformacionLaboral extends Model
         return $this->belongsTo(RegistroSocio::class);
     }
 }
+

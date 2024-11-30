@@ -45,28 +45,28 @@
                 @forelse($registros as $registro)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $register->numero_socio }}</div>
+                            <div class="text-sm text-gray-900">{{ $registro->numero_socio }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{ $register->datosPersonales->nombre_completo }}
+                                {{ $registro->nombre_completo }}
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {{ ucfirst($register->estado) }}
+                                {{ ucfirst($registro->estado) }}
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <a href="{{ route('register.edit', $register->id) }}" 
+                            <a href="{{ route('register.edit', $registro->id) }}" 
                                class="text-indigo-600 hover:text-indigo-900 mr-3">
                                 Editar
                             </a>
-                            <a href="{{ route('registro.generar-pdf', $register->id) }}" 
+                            <a href="{{ route('registro.generar-pdf', $registro->id) }}" 
                                class="text-green-600 hover:text-green-900 mr-3">
                                 PDF
                             </a>
-                            <form action="{{ route('register.destroy', $register->id) }}" 
+                            <form action="{{ route('register.destroy', $registro->id) }}" 
                                   method="POST" 
                                   class="inline-block">
                                 @csrf

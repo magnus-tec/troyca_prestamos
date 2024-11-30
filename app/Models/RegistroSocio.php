@@ -1,5 +1,5 @@
 <?php
-// app/Models/RegistroSocio.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,15 +9,18 @@ class RegistroSocio extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'numero_socio',
-        'estado'
-    ];
+    protected $fillable = ['numero_socio' , 'estado'];
 
-    // Relaciones
     public function datosPersonales()
     {
-        return $this->hasOne(DatosPersonales::class);
+        return $this->hasOne(DatosPersonales::class , 'registro_socio_id');
+    }
+
+    public function getNombreCompletoAttribute()
+    {
+        return $this->datosPersonales 
+            ? "{$this->datosPersonales->apellido_paterno} {$this->datosPersonales->apellido_materno} {$this->datosPersonales->nombres}"
+            : '';
     }
 
     public function direccion()
@@ -39,24 +42,5 @@ class RegistroSocio extends Model
     {
         return $this->hasMany(Beneficiario::class);
     }
-
-    // Método para generar número de socio automáticamente
-    public static function generarNumeroSocio()
-    {
-        $ultimoSocio = self::latest()->first();
-        $numero = $ultimoSocio ? intval(substr($ultimoSocio->numero_socio, 3)) + 1 : 1;
-        return 'SOC' . str_pad($numero, 6, '0', STR_PAD_LEFT);
-    }
-
-    // Scope para socios activos
-    public function scopeActivos($query)
-    {
-        return $query->where('estado', 'activo');
-    }
-
-    // Método para verificar si el socio está activo
-    public function estaActivo()
-    {
-        return $this->estado === 'activo';
-    }
 }
+

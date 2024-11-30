@@ -1,5 +1,5 @@
 <?php
-// app/Models/Direccion.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Direccion extends Model
 {
     use HasFactory;
+
+    protected $table = 'direcciones';
 
     protected $fillable = [
         'registro_socio_id',
@@ -25,10 +27,5 @@ class Direccion extends Model
     {
         return $this->belongsTo(RegistroSocio::class);
     }
-
-    // Método para obtener dirección completa
-    public function getDireccionCompletaAttribute()
-    {
-        return "{$this->direccion}, {$this->distrito}, {$this->provincia}, {$this->departamento}";
-    }
 }
+

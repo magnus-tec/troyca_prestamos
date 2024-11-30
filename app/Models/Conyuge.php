@@ -1,5 +1,5 @@
 <?php
-// app/Models/Conyuge.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,7 +20,7 @@ class Conyuge extends Model
     ];
 
     protected $casts = [
-        'fecha_nacimiento' => 'date'
+        'fecha_nacimiento' => 'date',
     ];
 
     public function registroSocio()
@@ -28,3 +28,4 @@ class Conyuge extends Model
         return $this->belongsTo(RegistroSocio::class);
     }
 }
+

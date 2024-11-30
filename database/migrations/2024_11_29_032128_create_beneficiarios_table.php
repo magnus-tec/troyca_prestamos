@@ -6,16 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBeneficiariosTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('beneficiarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('registro_socio_id')->constrained('registro_socios')->onDelete('cascade');
+            $table->foreignId('registro_socio_id')->constrained()->onDelete('cascade');
             $table->string('apellidos_nombres');
             $table->string('dni', 8);
             $table->date('fecha_nacimiento');
@@ -25,13 +20,9 @@ class CreateBeneficiariosTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('beneficiarios');
     }
 }
+

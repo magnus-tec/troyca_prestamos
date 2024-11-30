@@ -56,10 +56,10 @@
 
         <!-- Profesión -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">
+        <label for="profesion_ocupacion" class="block text-sm font-medium text-gray-700 mb-2">
                 Profesión u Ocupación
             </label>
-            <input type="text" name="profesion" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
+            <input type="text" id="profesion_ocupacion" name="profesion_ocupacion" value="{{ old('profesion_ocupacion') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
         </div>
 
         <!-- Nacionalidad -->

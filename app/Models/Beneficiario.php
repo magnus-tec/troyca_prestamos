@@ -1,5 +1,5 @@
 <?php
-// app/Models/Beneficiario.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +19,7 @@ class Beneficiario extends Model
     ];
 
     protected $casts = [
-        'fecha_nacimiento' => 'date'
+        'fecha_nacimiento' => 'date',
     ];
 
     public function registroSocio()
@@ -27,3 +27,4 @@ class Beneficiario extends Model
         return $this->belongsTo(RegistroSocio::class);
     }
 }
+

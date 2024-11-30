@@ -16,6 +16,7 @@ class CreateRegistroSociosTable extends Migration
         Schema::create('registro_socios', function (Blueprint $table) {
             $table->id();
             $table->string('numero_socio')->unique();
+            $table->string('estado')->default('activo');
             $table->timestamps();
         });
     }

@@ -6,16 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateDireccionesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('direcciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('registro_socio_id')->constrained('registro_socios')->onDelete('cascade');
+            $table->foreignId('registro_socio_id')->constrained()->onDelete('cascade');
             $table->string('departamento');
             $table->string('provincia');
             $table->string('distrito');
@@ -28,13 +23,9 @@ class CreateDireccionesTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('direcciones');
     }
 }
+
