@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EstadoDeCuentaController;
 use App\Http\Controllers\RegistroSocioController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,13 @@ Route::get('/', function () {
 
 Route::get('/registrar-socios', [RegistroSocioController::class, 'index'])->name('registrar-socios');
 Route::get('/nuevo-registro', [RegistroSocioController::class, 'create'])->name('nuevo-registro');
+
+// ESTADO DE CUENTA
+Route::get('/estado-de-cuenta', [EstadoDeCuentaController::class, 'index'])->name('estado-de-cuenta');
+Route::get('/nuevo-prestamo', [EstadoDeCuentaController::class, 'create'])->name('registrar-prestamo');
+Route::post('/guardar-prestamo', [EstadoDeCuentaController::class, 'store'])->name('guardar-prestamo');
+Route::get('/prestamo/{id}/pdf', [EstadoDeCuentaController::class, 'generarPDF'])->name('prestamo-pdf');
+
 
 Route::post('/registro/datos-personales', [RegistroSocioController::class, 'storeDatosPersonales'])->name('registro.datos-personales.store');
 // Make sure you have this route for displaying the datos-personales form
