@@ -261,10 +261,10 @@ class RegistroSocioController extends Controller
     }
 
     public function generarPDF(RegistroSocio $registro)
-{
-    $pdf = PDF::loadView('pdfs.registro_socio', compact('registro'));
-    return $pdf->download('registro_socio_' . $registro->numero_socio . '.pdf');
-}
+    {
+        $pdf = PDF::loadView('pdfs.registro_socio', compact('registro'));
+        return $pdf->download('registro_socio_' . $registro->numero_socio . '.pdf');
+    }
 
     private function generarNumeroSocio()
     {
@@ -274,4 +274,3 @@ class RegistroSocioController extends Controller
         return 'SOC' . str_pad($nuevoNumero, 6, '0', STR_PAD_LEFT);
     }
 }
-

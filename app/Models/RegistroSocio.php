@@ -9,16 +9,16 @@ class RegistroSocio extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['numero_socio' , 'estado'];
+    protected $fillable = ['numero_socio', 'estado'];
 
     public function datosPersonales()
     {
-        return $this->hasOne(DatosPersonales::class , 'registro_socio_id');
+        return $this->belongsTo(DatosPersonales::class, 'registro_socio_id');
     }
 
     public function getNombreCompletoAttribute()
     {
-        return $this->datosPersonales 
+        return $this->datosPersonales
             ? "{$this->datosPersonales->apellido_paterno} {$this->datosPersonales->apellido_materno} {$this->datosPersonales->nombres}"
             : '';
     }
@@ -43,4 +43,3 @@ class RegistroSocio extends Model
         return $this->hasMany(Beneficiario::class);
     }
 }
-
