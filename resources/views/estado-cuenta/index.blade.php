@@ -48,12 +48,6 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                {{-- <pre>
-                    <?php
-                    var_dump($prestamos);    
-                        ?>
-                    
-                </pre> --}}
                 @forelse($prestamos as $prestamo)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -61,7 +55,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{ $prestamo->datosPersonales->apellido_paterno }} {{ $prestamo->datosPersonales->apellido_materno }} {{ $prestamo->datosPersonales->nombres }} 
+                                {{ $prestamo->registroSocio->datosPersonales->apellido_paterno }} {{ $prestamo->registroSocio->datosPersonales->apellido_materno }} {{ $prestamo->registroSocio->datosPersonales->nombres }} 
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">

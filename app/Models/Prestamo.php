@@ -21,11 +21,6 @@ class Prestamo extends Model
         'estado',
     ];
 
-    // Relación con el modelo RegistroSocio
-    public function datosPersonales()
-    {
-        return $this->belongsTo(DatosPersonales::class, 'registro_socio_id');
-    }
     public function registroSocio()
     {
         return $this->belongsTo(RegistroSocio::class);

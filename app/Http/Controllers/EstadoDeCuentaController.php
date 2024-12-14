@@ -19,7 +19,7 @@ class EstadoDeCuentaController extends Controller
      */
     public function index()
     {
-        $prestamos = Prestamo::where('estado', 0)->with('datosPersonales')->get();
+        $prestamos = Prestamo::where('estado', 0)->with('registroSocio.datosPersonales')->get();
         return view('estado-cuenta.index', compact('prestamos'));
     }
 
