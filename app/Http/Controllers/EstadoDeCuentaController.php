@@ -97,7 +97,7 @@ class EstadoDeCuentaController extends Controller
     }
     public function generarPDF($id)
     {
-        $prestamo = Prestamo::with('datosPersonales')->find($id);
+        $prestamo = Prestamo::with('registroSocio.datosPersonales')->find($id);
 
         $detalles = DetallePrestamo::where('prestamos_id', $id)->first();
         $prestamoCuotas = PrestamoCuota::where('prestamos_id', $id)->get();
