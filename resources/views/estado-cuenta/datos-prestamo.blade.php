@@ -111,7 +111,7 @@
             </label>
             <input type="text" name="ted" maxlength="8" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500">
         </div>
-            <input type="text" name="listado_pagos" id="listado_pagos">
+            <input type="hidden" name="listado_pagos" id="listado_pagos">
 
          <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600" id="generarCuota">
             GENERAR CUOTA
