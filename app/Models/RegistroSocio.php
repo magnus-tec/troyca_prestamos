@@ -13,7 +13,7 @@ class RegistroSocio extends Model
 
     public function datosPersonales()
     {
-        return $this->belongsTo(DatosPersonales::class, 'registro_socio_id');
+        return $this->hasOne(DatosPersonales::class, 'registro_socio_id');
     }
 
     public function getNombreCompletoAttribute()
