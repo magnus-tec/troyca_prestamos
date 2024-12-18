@@ -80,7 +80,7 @@
                     <th>Interes</th>
                     <th>Cuota</th>
                     <th>Mora</th>
-                    <th>Subtotal</th>
+                    {{-- <th>Subtotal</th> --}}
                     <th>Monto Pagado</th>
                     <th>Estado</th>
 
@@ -89,8 +89,12 @@
             <tbody>
                 <?php
                 $contador = 1;
+                $total = 0;
                 ?>
                 @foreach($prestamoCuotas as $cuota)
+                @php
+                    $total+= $cuota->cuota;
+                @endphp
                     <tr>
                         <td>Cuota {{$contador++}}</td>
                         <td>{{ $cuota->fecha_pago }}</td>
@@ -99,7 +103,7 @@
                         <td> - </td>
                         <td> {{$cuota->cuota}} </td>
                         <td> - </td>
-                        <td> {{$cuota->subtotal}} </td>
+                        {{-- <td> {{$cuota->subtotal}} </td> --}}
                         <td> - </td>
                         <td>
                             <span class="status {{ $cuota->estado == 0 ? 'pending' : 'paid' }}">
@@ -110,6 +114,7 @@
                 @endforeach
             </tbody>
         </table>
+        <p>Total Pagado: {{ $total }}</p>
     </div>
 
 </body>

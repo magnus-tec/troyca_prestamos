@@ -100,12 +100,35 @@ class EstadoDeCuentaController extends Controller
         $prestamo = Prestamo::with('registroSocio.datosPersonales')->find($id);
 
         $detalles = DetallePrestamo::where('prestamos_id', $id)->first();
-        $prestamoCuotas = PrestamoCuota::where('prestamos_id', $id)->get();
+        $prestamoCuotas = PrestamoCuota::where('prestamos_id', $id)->where('estado', 1)->get();
 
         $pdf = Pdf::loadView('pdfs.prestamo', compact('prestamo', 'detalles', 'prestamoCuotas'));
 
         // return $pdf->download('prestamo_' . $prestamo->id . '.pdf');
         return $pdf->stream('prestamo_' . $prestamo->id . '.pdf');
+    }
+    public function generarPago($id)
+    {
+        $cuotas = PrestamoCuota::where('prestamos_id', $id)->get();
+        return view('estado-cuenta.pagar-prestamo', compact('cuotas'));
+    }
+    public function pagarCuota($id)
+    {
+        $cuota = PrestamoCuota::find($id);
+
+        if ($cuota) {
+            $cuota->estado = ($cuota->estado == 1) ? 0 : 1;
+            $cuota->save();
+        }
+        $totalPagado = PrestamoCuota::where('estado', 1)->sum('cuota');
+
+
+        return response()->json([
+            'estado' => $cuota->estado,
+            'mensaje' => $cuota->estado == 1 ? 'Pagado' : 'Pendiente',
+            'totalPagado' => number_format($totalPagado, 2)
+
+        ]);
     }
 
     /**

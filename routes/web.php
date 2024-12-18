@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AporteAhorrosController;
 use App\Http\Controllers\EstadoDeCuentaController;
 use App\Http\Controllers\RegistroSocioController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,18 @@ Route::get('/estado-de-cuenta', [EstadoDeCuentaController::class, 'index'])->nam
 Route::get('/nuevo-prestamo', [EstadoDeCuentaController::class, 'create'])->name('registrar-prestamo');
 Route::post('/guardar-prestamo', [EstadoDeCuentaController::class, 'store'])->name('guardar-prestamo');
 Route::get('/prestamo/{id}/pdf', [EstadoDeCuentaController::class, 'generarPDF'])->name('prestamo-pdf');
+Route::get('/prestamo/{id}/pagar', [EstadoDeCuentaController::class, 'generarPago'])->name('prestamo-pagar');
+Route::get('/prestamo/pagar-cuota/{id}', [EstadoDeCuentaController::class, 'pagarCuota'])->name('prestamo-pagarCuota');
+
+// APORTE Y AHORROS
+
+Route::get('/aporte-ahorros', [AporteAhorrosController::class, 'index'])->name('aporte-ahorros');
+Route::get('/nuevo-aporte-ahorro', [AporteAhorrosController::class, 'create'])->name('registrar-aporte');
+Route::post('/guardar-aporte-ahorro', [AporteAhorrosController::class, 'store'])->name('guardar-aporte');
+Route::get('/aporte/totalAportes/{id}', [AporteAhorrosController::class, 'totalAportes'])->name('obtener-total-aporte');
+Route::post('/guardar-aporte', [AporteAhorrosController::class, 'store'])->name('guardar-aporte');
+Route::get('/aporte/{id}/pdf', [AporteAhorrosController::class, 'generarPDF'])->name('aporte-pdf');
+
 
 
 Route::post('/registro/datos-personales', [RegistroSocioController::class, 'storeDatosPersonales'])->name('registro.datos-personales.store');

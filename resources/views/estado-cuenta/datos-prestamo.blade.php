@@ -131,17 +131,15 @@
 </form>
 <div id="tabla-pagos"></div>
 <script>
-document.querySelector('#generarCuota').addEventListener('click', function(event) {
-  event.preventDefault(); // Prevenir el comportamiento por defecto del formulario (si aplica)
+  document.querySelector('#generarCuota').addEventListener('click', function(event) {
+  event.preventDefault(); 
   
-  // Obtener datos del formulario
   const montoPrestamo = parseFloat(document.querySelector('input[name="monto_prestamo"]').value);
   const tasaAnual = parseFloat(document.querySelector('input[name="tem"]').value) / 100;
   const cantidadCuotas = parseInt(document.querySelector('input[name="cantidad_cuotas"]').value);
   const modalidad = document.querySelector('select[name="modalidad_pago"]').value;
   const fechaPrimeraCuota = document.querySelector('input[name="fecha_p_cuota"]').value;
 
-  // Validar los datos
   if (isNaN(montoPrestamo) || isNaN(tasaAnual) || isNaN(cantidadCuotas) || cantidadCuotas <= 0 || !fechaPrimeraCuota) {
     alert("Por favor ingresa todos los datos correctamente.");
     return; // Si algún valor es inválido, no se hace nada
@@ -160,18 +158,14 @@ document.querySelector('#generarCuota').addEventListener('click', function(event
     tasaInteres = tasaAnual / 365; // Tasa diaria
   }
 
-  // Calcular la cuota mensual o diaria
-  if (modalidad === "mensual") {
-    cuota = (montoPrestamo * tasaInteres) / (1 - Math.pow(1 + tasaInteres, -numPagos));
-  } else {
-    cuota = montoPrestamo / numPagos; // En modalidad diaria, la cuota es el monto dividido entre los días
-  }
+  // Calcular la cuota con la fórmula de amortización
+  cuota = (montoPrestamo * Math.pow(1 + tasaInteres, numPagos) * tasaInteres) / (Math.pow(1 + tasaInteres, numPagos) - 1);
 
   // Mostrar la cuota calculada
   document.querySelector('input[name="cuota"]').value = cuota.toFixed(2);
 
-  // Calcular tasa de interés diaria (TED)
-  tasaDiaria = tasaAnual / 365;
+  // Calcular tasa de interés diaria (TED) con la fórmula correcta
+  tasaDiaria = Math.pow(1 + tasaAnual, 1 / 365) - 1;
   document.querySelector('input[name="ted"]').value = (tasaDiaria * 100).toFixed(4);
 
   // Calcular fechas de los pagos, vencimientos y generar los detalles
@@ -206,10 +200,8 @@ document.querySelector('#generarCuota').addEventListener('click', function(event
     });
   }
 
-  // Mostrar la tabla con el listado de pagos
   mostrarTablaPagos(listadoPagos);
   document.getElementById('listado_pagos').value = JSON.stringify(listadoPagos);
-
 });
 
 // Función para mostrar la tabla de pagos
@@ -217,7 +209,6 @@ function mostrarTablaPagos(pagos) {
   const tablaDiv = document.getElementById('tabla-pagos');
   tablaDiv.innerHTML = ''; // Limpiar la tabla previa
 
-  // Crear la cabecera de la tabla
   const cabecera = `
     <table class="w-full table-auto border-collapse">
       <thead>
@@ -233,7 +224,6 @@ function mostrarTablaPagos(pagos) {
       </thead>
       <tbody>
   `;
-        //  <th class="border px-4 py-2">Acciones</th>
 
   // Crear las filas con los datos de los pagos
   let filas = '';
@@ -241,50 +231,174 @@ function mostrarTablaPagos(pagos) {
     filas += `
       <tr>
         <td class="border px-4 py-2">${pago.fecha}</td>
-        <td class="border px-4 py-2">${pago.fechaVencimiento}</td>
+        <td class="border px-4 py-2">${pago.fecha}</td>
         <td class="border px-4 py-2">${pago.monto} </td>
         <td class="border px-4 py-2">${pago.saldoCapital} </td>
         <td class="border px-4 py-2">${pago.subtotal} </td>
         <td class="border px-4 py-2">${pago.montoPagado} </td>
         <td class="border px-4 py-2">${pago.interesDiario} %</td>
-       
       </tr>
     `;
   });
-//  <td class="border px-4 py-2">
-//           <button onclick="marcarComoPagado(${index})" class="bg-green-500 text-white py-1 px-4 rounded">Pagado</button>
-//           <button onclick="marcarComoDeuda(${index})" class="bg-red-500 text-white py-1 px-4 rounded">Deuda</button>
-//         </td>
 
   const tablaCompleta = cabecera + filas + `</tbody></table>`;
   tablaDiv.innerHTML = tablaCompleta;
 }
 
-// Función para marcar como pagado
-function marcarComoPagado(index) {
-  const tablaDiv = document.getElementById('tabla-pagos');
-  const filas = tablaDiv.querySelectorAll('tbody tr');
-  const pago = listadoPagos[index];
-  pago.pagado = true; // Marcar como pagado
+// document.querySelector('#generarCuota').addEventListener('click', function(event) {
+//   event.preventDefault(); // Prevenir el comportamiento por defecto del formulario (si aplica)
+  
+//   // Obtener datos del formulario
+//   const montoPrestamo = parseFloat(document.querySelector('input[name="monto_prestamo"]').value);
+//   const tasaAnual = parseFloat(document.querySelector('input[name="tem"]').value) / 100;
+//   const cantidadCuotas = parseInt(document.querySelector('input[name="cantidad_cuotas"]').value);
+//   const modalidad = document.querySelector('select[name="modalidad_pago"]').value;
+//   const fechaPrimeraCuota = document.querySelector('input[name="fecha_p_cuota"]').value;
 
-  // Actualizar la tabla
-  filas[index].querySelector('button').classList.add('bg-gray-500');
-  filas[index].querySelector('button').disabled = true; // Deshabilitar el botón
-  alert('Pago registrado como realizado.');
-}
+//   // Validar los datos
+//   if (isNaN(montoPrestamo) || isNaN(tasaAnual) || isNaN(cantidadCuotas) || cantidadCuotas <= 0 || !fechaPrimeraCuota) {
+//     alert("Por favor ingresa todos los datos correctamente.");
+//     return; // Si algún valor es inválido, no se hace nada
+//   }
 
-// Función para marcar como deuda
-function marcarComoDeuda(index) {
-  const tablaDiv = document.getElementById('tabla-pagos');
-  const filas = tablaDiv.querySelectorAll('tbody tr');
-  const pago = listadoPagos[index];
-  pago.pagado = false; // Marcar como deuda
+//   let tasaInteres, numPagos, cuota, tasaDiaria;
+//   let listadoPagos = [];
+//   let saldoCapital = montoPrestamo; // Inicializamos el saldo capital
 
-  // Actualizar la tabla
-  filas[index].querySelector('button').classList.remove('bg-gray-500');
-  filas[index].querySelector('button').disabled = false; // Habilitar el botón
-  alert('Pago marcado como deuda.');
-}
+//   // Calcular la tasa de interés según la modalidad
+//   if (modalidad === "mensual") {
+//     numPagos = cantidadCuotas;
+//     tasaInteres = tasaAnual / 12; // Tasa mensual
+//   } else {
+//     numPagos = cantidadCuotas;
+//     tasaInteres = tasaAnual / 365; // Tasa diaria
+//   }
+
+//   // Calcular la cuota mensual o diaria
+//   if (modalidad === "mensual") {
+//     cuota = (montoPrestamo * tasaInteres) / (1 - Math.pow(1 + tasaInteres, -numPagos));
+//   } else {
+//     cuota = montoPrestamo / numPagos; // En modalidad diaria, la cuota es el monto dividido entre los días
+//   }
+
+//   // Mostrar la cuota calculada
+//   document.querySelector('input[name="cuota"]').value = cuota.toFixed(2);
+
+//   // Calcular tasa de interés diaria (TED)
+//   tasaDiaria = tasaAnual / 365;
+//   document.querySelector('input[name="ted"]').value = (tasaDiaria * 100).toFixed(4);
+
+//   // Calcular fechas de los pagos, vencimientos y generar los detalles
+//   let fecha = new Date(fechaPrimeraCuota); 
+//   let montoPagado = 0; // Inicializamos el monto pagado
+//   for (let i = 0; i < numPagos; i++) {
+//     let fechaPago = new Date(fecha);
+//     let fechaVencimiento;
+//     if (modalidad === "diario") {
+//       fechaPago.setDate(fecha.getDate() + i);
+//       fechaVencimiento = new Date(fecha.getDate() + i + 1); // Vence al siguiente día
+//     } else {
+//       fechaPago.setMonth(fecha.getMonth() + i);
+//       fechaVencimiento = new Date(fecha.getFullYear(), fecha.getMonth() + i + 1, 0); // Un día antes del siguiente mes
+//     }
+//     let fechaFormateada = fechaPago.toISOString().split('T')[0];
+//     let fechaVencimientoFormateada = fechaVencimiento.toISOString().split('T')[0];
+
+//     saldoCapital -= cuota; // Restar la cuota al saldo de capital
+//     montoPagado += cuota; // Incrementar el monto pagado
+
+//     // Agregar al listado de pagos con su interés diario
+//     listadoPagos.push({
+//       fecha: fechaFormateada,
+//       fechaVencimiento: fechaVencimientoFormateada,
+//       monto: cuota.toFixed(2),
+//       saldoCapital: saldoCapital.toFixed(2),
+//       subtotal: (montoPrestamo - saldoCapital).toFixed(2),
+//       interesDiario: (tasaDiaria * 100).toFixed(4), // Interés diario
+//       montoPagado: montoPagado.toFixed(2),
+//       pagado: false // Inicialmente no pagado
+//     });
+//   }
+
+//   // Mostrar la tabla con el listado de pagos
+//   mostrarTablaPagos(listadoPagos);
+//   document.getElementById('listado_pagos').value = JSON.stringify(listadoPagos);
+
+// });
+
+// // Función para mostrar la tabla de pagos
+// function mostrarTablaPagos(pagos) {
+//   const tablaDiv = document.getElementById('tabla-pagos');
+//   tablaDiv.innerHTML = ''; // Limpiar la tabla previa
+
+//   // Crear la cabecera de la tabla
+//   const cabecera = `
+//     <table class="w-full table-auto border-collapse">
+//       <thead>
+//         <tr>
+//           <th class="border px-4 py-2">Fecha de Pago</th>
+//           <th class="border px-4 py-2">Fecha de Vencimiento</th>
+//           <th class="border px-4 py-2">Monto</th>
+//           <th class="border px-4 py-2">Saldo Capital</th>
+//           <th class="border px-4 py-2">Subtotal</th>
+//           <th class="border px-4 py-2">Monto Pagado</th>
+//           <th class="border px-4 py-2">Interés Diario (%)</th>
+//         </tr>
+//       </thead>
+//       <tbody>
+//   `;
+//         //  <th class="border px-4 py-2">Acciones</th>
+
+//   // Crear las filas con los datos de los pagos
+//   let filas = '';
+//   pagos.forEach((pago, index) => {
+//     filas += `
+//       <tr>
+//         <td class="border px-4 py-2">${pago.fecha}</td>
+//         <td class="border px-4 py-2">${pago.fechaVencimiento}</td>
+//         <td class="border px-4 py-2">${pago.monto} </td>
+//         <td class="border px-4 py-2">${pago.saldoCapital} </td>
+//         <td class="border px-4 py-2">${pago.subtotal} </td>
+//         <td class="border px-4 py-2">${pago.montoPagado} </td>
+//         <td class="border px-4 py-2">${pago.interesDiario} %</td>
+       
+//       </tr>
+//     `;
+//   });
+// //  <td class="border px-4 py-2">
+// //           <button onclick="marcarComoPagado(${index})" class="bg-green-500 text-white py-1 px-4 rounded">Pagado</button>
+// //           <button onclick="marcarComoDeuda(${index})" class="bg-red-500 text-white py-1 px-4 rounded">Deuda</button>
+// //         </td>
+
+//   const tablaCompleta = cabecera + filas + `</tbody></table>`;
+//   tablaDiv.innerHTML = tablaCompleta;
+// }
+
+// // Función para marcar como pagado
+// function marcarComoPagado(index) {
+//   const tablaDiv = document.getElementById('tabla-pagos');
+//   const filas = tablaDiv.querySelectorAll('tbody tr');
+//   const pago = listadoPagos[index];
+//   pago.pagado = true; // Marcar como pagado
+
+//   // Actualizar la tabla
+//   filas[index].querySelector('button').classList.add('bg-gray-500');
+//   filas[index].querySelector('button').disabled = true; // Deshabilitar el botón
+//   alert('Pago registrado como realizado.');
+// }
+
+// // Función para marcar como deuda
+// function marcarComoDeuda(index) {
+//   const tablaDiv = document.getElementById('tabla-pagos');
+//   const filas = tablaDiv.querySelectorAll('tbody tr');
+//   const pago = listadoPagos[index];
+//   pago.pagado = false; // Marcar como deuda
+
+//   // Actualizar la tabla
+//   filas[index].querySelector('button').classList.remove('bg-gray-500');
+//   filas[index].querySelector('button').disabled = false; // Habilitar el botón
+//   alert('Pago marcado como deuda.');
+// }
 
   document.querySelector('input[name="monto_prestamo"]').addEventListener('input', calcularCuota);
   document.querySelector('input[name="tem"]').addEventListener('input', calcularCuota);

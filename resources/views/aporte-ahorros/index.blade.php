@@ -3,10 +3,10 @@
 @section('content')
 <div class="container mx-auto px-4">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-gray-800">Registro de Prestamos</h2>
-        <a href="{{ route('registrar-prestamo') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg flex items-center">
+        <h2 class="text-2xl font-semibold text-gray-800">Registro de aportes</h2>
+        <a href="{{ route('registrar-aporte') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg flex items-center">
             <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i>
-            Agregar Nuevo registro de Prestamos
+            Agregar Nuevo aporte
         </a>
     </div>
 
@@ -28,19 +28,10 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Fecha solicitud
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Nombres y Apellidos
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Fecha Desembolso
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        asesor
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Estado
+                        Total de Aportes
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Acciones
@@ -48,43 +39,34 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($prestamos as $prestamo)
+                @forelse($aportes as $aporte)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $prestamo->fecha_solicitud }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">
-                                {{ $prestamo->registroSocio->datosPersonales->apellido_paterno }} {{ $prestamo->registroSocio->datosPersonales->apellido_materno }} {{ $prestamo->registroSocio->datosPersonales->nombres }} 
+                                {{ $aporte->registroSocio->datosPersonales->apellido_paterno }} {{ $aporte->registroSocio->datosPersonales->apellido_materno }} {{ $aporte->registroSocio->datosPersonales->nombres }} 
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {{ $prestamo->fecha_desembolso }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {{ $prestamo->asesor }}
-                            </span>
-                        </td>
                          <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {{ $prestamo->estado == 0 ? 'activo' : 'inactivo' }}
-                            </span>
+                            <div class="text-sm font-medium text-gray-900">
+                                {{ $aporte->total_aportes }} 
+                            </div>
                         </td>
-                        
-{{-- @dd($prestamo) --}}
+                        {{-- <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                {{ $aporte->estado == 'activo' ? 'activo' : 'inactivo' }}
+                            </span>
+                        </td>  --}}
+                    
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <a href="{{ route('prestamo-pagar', $prestamo->id) }}" 
+                            {{-- <a href="{{ route('prestamo-pagar', $aporte->id) }}" 
                                class="text-indigo-600 hover:text-indigo-900 mr-3" target="_blank">
                                 Pagar
-                            </a>
-                            <a href="{{ route('prestamo-pdf', $prestamo->id) }}" 
+                            </a> --}}
+                            <a href="{{ route('aporte-pdf', $aporte->id) }}" 
                                class="text-green-600 hover:text-green-900 mr-3" target="_blank">
                                 PDF
                             </a>
-                            <form action="{{ route('register.destroy', $prestamo->id) }}" 
+                            {{-- <form action="{{ route('register.destroy', $aporte->id) }}" 
                                   method="POST" 
                                   class="inline-block">
                                 @csrf
@@ -94,7 +76,7 @@
                                         onclick="return confirm('¿Está seguro de eliminar este register?')">
                                     Eliminar
                                 </button>
-                            </form>
+                            </form> --}}
                         </td>
                     </tr>
                 @empty
